@@ -72,7 +72,7 @@ pnpm e2e     # Playwright: A vs B, "N of 11" through skips and ads, exposure rul
 
 ## Deploy (optional)
 
-`.github/workflows/pages.yml` publishes to GitHub Pages on pushes to `main`. In the repo settings, set **Pages, Source** to **GitHub Actions**. The site is then at `https://audsostrom.github.io/cmpm290a-project2/`.
+Deployed on [Vercel](https://vercel.com). Import the repo in the Vercel dashboard; it detects Vite and pnpm automatically (build command `pnpm build`, output directory `dist`). Pushes to `main` deploy to production, and other branches get preview URLs.
 
 ## Credits
 

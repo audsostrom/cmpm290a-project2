@@ -4,6 +4,7 @@
   "type": "module",
   "description": "CMPM 290A Project 2: interactive prototype of the Instagram Stories 'B' variant (tray badges + tray progress label), with an A/B toggle and experiment console.",
   "packageManager": "pnpm@9.12.3",
+  "engines": { "node": "24.x" },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
