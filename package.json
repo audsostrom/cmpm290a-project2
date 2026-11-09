@@ -1,0 +1,30 @@
+{
+  "name": "cmpm290a-project2",
+  "private": true,
+  "type": "module",
+  "description": "CMPM 290A Project 2: interactive prototype of the Instagram Stories 'B' variant (tray badges + tray progress label), with an A/B toggle and experiment console.",
+  "packageManager": "pnpm@9.12.3",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "mocks": "node --experimental-strip-types scripts/mocks.ts"
+  },
+  "dependencies": {
+    "@dicebear/collection": "^9",
+    "@dicebear/core": "^9"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65",
+    "@sveltejs/vite-plugin-svelte": "^7.3",
+    "@types/node": "^24",
+    "svelte": "^5.57",
+    "svelte-check": "^4.7",
+    "typescript": "5.9.3",
+    "vite": "^8.3",
+    "vitest": "^5.1"
+  }
+}
