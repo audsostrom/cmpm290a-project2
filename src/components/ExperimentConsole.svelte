@@ -28,34 +28,20 @@
   </div>
   <p class="hint">
     {#if app.variant === 'B'}
-      Tray badges show each account's story count and age. The viewer shows “4 of 11” tray progress.
+      The viewer shows “4 of 11” tray progress beside the username.
     {:else}
-      Current experience: no badges, no tray progress.
+      Current experience: no tray progress.
     {/if}
   </p>
 
   <h2>Primary metric</h2>
   <dl class="metrics">
     <div><dt>Accounts viewed / tray session</dt><dd data-testid="metric-accounts">{fmt(app.metrics.accountsPerSession)}</dd></div>
-    <div><dt>Stories viewed / session (guardrail)</dt><dd>{fmt(app.metrics.storiesPerSession)}</dd></div>
     <div><dt>Tray sessions ({app.variant})</dt><dd>{app.metrics.sessions}</dd></div>
     {#if live}
-      <div class="live"><dt>Current session</dt><dd>{live.accountsViewed.length} accounts · {live.storiesViewed} stories</dd></div>
+      <div class="live"><dt>Current session</dt><dd>{live.accountsViewed.length} accounts</dd></div>
     {/if}
   </dl>
-
-  <h2>Event log</h2>
-  <ol class="log" data-testid="event-log">
-    {#each app.events as event (event.id)}
-      <li>
-        <span class="time">{event.at}</span>
-        <code class="name">{event.name}</code>
-        <code class="payload">{JSON.stringify(event.payload)}</code>
-      </li>
-    {:else}
-      <li class="empty">Open a story from the tray to start a session.</li>
-    {/each}
-  </ol>
 
   <div class="footer">
     <button type="button" onclick={() => app.reset()}>Reset demo</button>

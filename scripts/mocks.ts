@@ -21,7 +21,7 @@ try {
     // paused=1: no auto-advance, so the viewer frame is stable.
     await page.goto(`http://localhost:${PORT}/?variant=${variant}&clean=1&paused=1`);
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(400); // let badge pop-in finish
+    await page.waitForTimeout(400); // let avatars and fonts settle
     await phone.screenshot({ path: `${OUT}/${variant}-home.png` });
 
     // The 4th account with unseen stories, so B reads "4 of 11" (the plan's example).

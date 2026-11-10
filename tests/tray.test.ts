@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ACCOUNTS, ADS, DEMO_NOW } from '../src/data/mock';
 import { buildPlaylist } from '../src/lib/playlist';
-import { ageLabel, badgeLines, hasUnseen, trayOrder } from '../src/lib/tray';
+import { ageLabel, hasUnseen, trayOrder } from '../src/lib/tray';
 
 const byName = (u: string) => ACCOUNTS.find((a) => a.username === u)!;
 
@@ -14,14 +14,6 @@ describe('ageLabel', () => {
     [0, '1m'],
   ])('%d ms ago → %s', (ago, label) => {
     expect(ageLabel(DEMO_NOW - ago, DEMO_NOW)).toBe(label);
-  });
-});
-
-describe('badgeLines (B)', () => {
-  it('matches the report mock: count over age', () => {
-    expect(badgeLines(byName('jules.rivera'), DEMO_NOW)).toEqual(['3 posts', '20h']);
-    expect(badgeLines(byName('tide.and.tofu'), DEMO_NOW)).toEqual(['1 post', '45m']);
-    expect(badgeLines(byName('bassline.bea'), DEMO_NOW)).toEqual(['18 posts', '2h']);
   });
 });
 

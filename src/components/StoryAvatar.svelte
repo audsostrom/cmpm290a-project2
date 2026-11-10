@@ -1,19 +1,15 @@
 <script lang="ts">
-  import { DEMO_NOW } from '../data/mock';
   import type { Account } from '../data/types';
   import { avatarUri } from '../lib/avatar';
-  import { badgeLines, hasUnseen } from '../lib/tray';
-  import TrayBadge from './TrayBadge.svelte';
+  import { hasUnseen } from '../lib/tray';
 
   let {
     account,
     isSelf = false,
-    showBadge,
     onopen,
-  }: { account: Account; isSelf?: boolean; showBadge: boolean; onopen?: () => void } = $props();
+  }: { account: Account; isSelf?: boolean; onopen?: () => void } = $props();
 
   const unseen = $derived(hasUnseen(account));
-  const lines = $derived(badgeLines(account, DEMO_NOW));
 </script>
 
 <button
@@ -32,8 +28,6 @@
     <img src={avatarUri(account.avatarSeed, account.avatarBg)} alt="" draggable="false" />
     {#if isSelf}
       <span class="add" aria-hidden="true">+</span>
-    {:else if showBadge && lines}
-      <TrayBadge {lines} />
     {/if}
   </span>
   <span class="name">{isSelf ? 'Your story' : account.username}</span>

@@ -37,7 +37,7 @@ export function flag(name: string, search: string = location.search): boolean {
 
 export interface ExperimentEvent {
   id: number;
-  name: 'story_progress_exposure' | 'story_badge_exposure' | 'tray_session_end';
+  name: 'story_progress_exposure' | 'tray_session_end';
   at: string;
   payload: Record<string, string | number | boolean>;
 }
@@ -47,7 +47,6 @@ export interface TraySession {
   variant: Variant;
   /** Unique usernames viewed (an array so Svelte state tracks it). */
   accountsViewed: string[];
-  storiesViewed: number;
 }
 
 let sessionCounter = 0;

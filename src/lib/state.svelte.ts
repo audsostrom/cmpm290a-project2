@@ -44,7 +44,6 @@ class AppState {
     return {
       sessions: done.length,
       accountsPerSession: mean(done.map((s) => s.accountsViewed.length)),
-      storiesPerSession: mean(done.map((s) => s.storiesViewed)),
     };
   });
 
@@ -70,7 +69,6 @@ class AppState {
         id: newSessionId(),
         variant: this.variant,
         accountsViewed: [],
-        storiesViewed: 0,
       };
       // Logged in both arms: in A it's the counterfactual exposure.
       this.log('story_progress_exposure', {
@@ -87,15 +85,12 @@ class AppState {
     this.viewer = { source, playlist, progress, session };
   }
 
-  /** A story was shown: mark it seen and count it toward the session's metrics. */
+  /** A story was shown: mark it seen and count its account toward the session's metric. */
   viewed(username: string, storyIndex: number): void {
     const account = this.accounts.find((a) => a.username === username);
     if (account && storyIndex + 1 > account.seenCount) account.seenCount = storyIndex + 1;
     const session = this.viewer?.session;
-    if (session) {
-      if (!session.accountsViewed.includes(username)) session.accountsViewed.push(username);
-      session.storiesViewed += 1;
-    }
+    if (session && !session.accountsViewed.includes(username)) session.accountsViewed.push(username);
   }
 
   close(): void {
@@ -106,14 +101,9 @@ class AppState {
         session_id: session.id,
         variant: session.variant,
         accounts_viewed: session.accountsViewed.length,
-        stories_viewed: session.storiesViewed,
       });
     }
     this.viewer = null;
-  }
-
-  logBadgeExposure(visibleAccounts: number): void {
-    this.log('story_badge_exposure', { variant: this.variant, visible_accounts: visibleAccounts });
   }
 
   /** Back to the demo's starting point (all stories unseen again, logs cleared). */

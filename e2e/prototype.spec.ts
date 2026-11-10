@@ -2,24 +2,14 @@ import { expect, test, type Page } from '@playwright/test';
 
 const log = (page: Page) => page.getByTestId('event-log');
 
-test('A (control): no badges and no tray progress', async ({ page }) => {
+test('A (control): no tray progress', async ({ page }) => {
   await page.goto('/?variant=A&paused=1');
   await expect(page.getByTestId('tray-jules.rivera')).toBeVisible();
-  await expect(page.getByTestId('tray-badge')).toHaveCount(0);
   await page.getByTestId('tray-kofi.k').click();
   await expect(page.getByTestId('viewer-username')).toHaveText('kofi.k');
   await expect(page.getByTestId('tray-progress')).toHaveCount(0);
   // Exposure is still logged in control (counterfactual).
   await expect(log(page)).toContainText('"variant":"A","session_id":"sess_001","unseen_accounts_at_open":11');
-});
-
-test('B: badges show story count and age on every account circle', async ({ page }) => {
-  await page.goto('/?variant=B&paused=1');
-  const badge = (u: string) => page.getByTestId(`tray-${u}`).getByTestId('tray-badge');
-  await expect(badge('jules.rivera')).toHaveText(/3 posts\s*20h/);
-  await expect(badge('tide.and.tofu')).toHaveText(/1 post\s*45m/);
-  await expect(badge('bassline.bea')).toHaveText(/18 posts\s*2h/);
-  await expect(page.getByTestId('tray-self').getByTestId('tray-badge')).toHaveCount(0);
 });
 
 test('B: "N of 11" follows the account on screen; ads and skips follow the plan rules', async ({ page }) => {
